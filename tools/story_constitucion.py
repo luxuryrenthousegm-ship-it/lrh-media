@@ -6,36 +6,29 @@ sys.path.insert(0, os.path.dirname(__file__))
 from reel_1044_sunset import play, LIGHT, MED, spaced, ease, music, GOLD, S
 
 W, H, FPS, X = 1080, 1920, 30, 0.7
-SRC = "/home/claude/lrh-media/src/d24/video_d24.mp4"
+SRC = "/home/claude/lrh-media/src/d24/original_d24.mov"  # original del iPhone, sin recomprimir
 OUT = f"{S}/st"; os.makedirs(OUT, exist_ok=True)
 GREEN = (14, 34, 31)
-CUTS = [(5.5, 5.6, 1), (40.3, 5.6, 2.8), (14.0, 5.8, 1), (9.0, 5.0, 1)]  # sala, habitación (cámara lenta 2x), terraza: inicio, duración final, lentitud
-GRADE = ("eq=contrast=1.06:saturation=1.08:brightness=0.01,colorbalance=rs=0.04:gs=0.01:bs=-0.04:rh=0.03:bh=-0.03,"
-         "vignette=PI/6,noise=alls=2:allf=t")
+CUTS = [(5.5, 5.6), (40.3, 5.6), (14.0, 5.8), (9.0, 5.0)]  # sala, habitación, terraza, sala: inicio, duración (tiempo real)
+GRADE = "eq=contrast=1.04:saturation=1.06"  # corrección suave: sin grano, sin viñeta
 starts = [0.0]
 for i in range(1, len(CUTS)): starts.append(starts[-1] + CUTS[i - 1][1] - X)
 TOTAL = starts[-1] + CUTS[-1][1]
 
 def base():
     parts = []
-    for i, (ss, du, sl) in enumerate(CUTS):
-        o = f"{OUT}/c{i}.mp4"; parts.append(o)
+    for i, (ss, du) in enumerate(CUTS):
+        o = f"{OUT}/h{i}.mp4"; parts.append(o)
         if os.path.exists(o): continue
-        tr = f"{OUT}/c{i}.trf"
-        src_du = du / sl
-        subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", str(ss), "-t", str(src_du), "-i", SRC,
-                        "-vf", f"vidstabdetect=shakiness=6:accuracy=15:result={tr}", "-f", "null", "-"], check=True)
-        slow = f"setpts={sl}*PTS,minterpolate=fps=30:mi_mode=mci:mc_mode=aobmc:vsbmc=1," if sl != 1 else ""
-        vf = (f"vidstabtransform=input={tr}:smoothing=40:zoom=4,fps=30,{slow}scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,"
-              f"scale=w='1080*(1.0+0.05*t/{du})':h=-2:eval=frame,crop=1080:1920,{GRADE},setsar=1")
-        subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", str(ss), "-t", str(src_du), "-i", SRC, "-an", "-vf", vf,
-                        "-c:v", "libx264", "-crf", "16", "-preset", "medium", "-pix_fmt", "yuv420p", o], check=True)
+        vf = f"fps=30,scale=1080:1920:flags=lanczos,{GRADE},setsar=1"  # sin zoom ni cámara lenta
+        subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", str(ss), "-t", str(du), "-i", SRC, "-an", "-vf", vf,
+                        "-c:v", "libx264", "-crf", "8", "-preset", "medium", "-pix_fmt", "yuv420p", o], check=True)
     fc, last = [], "[0:v]"
     for i in range(1, len(parts)):
         lab = f"[v{i}]"; fc.append(f"{last}[{i}:v]xfade=transition=fade:duration={X}:offset={starts[i]:.3f}{lab}"); last = lab
     args = sum([["-i", p] for p in parts], [])
     subprocess.run(["ffmpeg", "-y", "-v", "error", *args, "-filter_complex", ";".join(fc), "-map", last,
-                    "-c:v", "libx264", "-crf", "16", "-pix_fmt", "yuv420p", f"{OUT}/base.mp4"], check=True)
+                    "-c:v", "libx264", "-crf", "8", "-pix_fmt", "yuv420p", f"{OUT}/base.mp4"], check=True)
 
 def ctext(d, y, text, fnt, fill):
     tw = d.textlength(text, font=fnt); d.text(((W - tw) / 2, y), text, font=fnt, fill=fill)
@@ -47,7 +40,7 @@ def kicker(d, y, text, a):
 
 def fade(lt, a, b, dur): return ease((lt - a) / 0.7) * (1 - ease((lt - (dur - b)) / 0.5))
 
-def shade(img, top=0.55, bottom=0.75):
+def shade(img, top=0.45, bottom=0.62):
     ov = Image.new("RGBA", (W, H)); d = ImageDraw.Draw(ov)
     for y in range(H):
         a = 0
@@ -120,7 +113,7 @@ def render():
     base()
     dec = subprocess.Popen(["ffmpeg", "-v", "error", "-i", f"{OUT}/base.mp4", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
     enc = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", "30", "-i", "-",
-                            "-c:v", "libx264", "-crf", "17", "-preset", "slow", "-pix_fmt", "yuv420p", f"{OUT}/ov.mp4"], stdin=subprocess.PIPE)
+                            "-c:v", "libx264", "-crf", "14", "-preset", "slow", "-profile:v", "high", "-maxrate", "20M", "-bufsize", "40M", "-g", "60", "-pix_fmt", "yuv420p", "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709", f"{OUT}/ov.mp4"], stdin=subprocess.PIPE)
     n, size = 0, W * H * 3
     while True:
         buf = dec.stdout.read(size)
@@ -129,7 +122,7 @@ def render():
     enc.stdin.close(); enc.wait(); dec.wait()
     music(f"{OUT}/music.wav", n / FPS, bpm=108)
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", f"{OUT}/ov.mp4", "-i", f"{OUT}/music.wav", "-map", "0:v", "-map", "1:a",
-                    "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart",
+                    "-c:v", "copy", "-c:a", "aac", "-b:a", "128k", "-ar", "48000", "-shortest", "-movflags", "+faststart",
                     f"{S}/Historia_06nov_Constitucion.mp4"], check=True)
     print("frames", n, "dur", n / FPS)
 
