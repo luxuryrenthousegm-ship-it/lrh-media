@@ -27,7 +27,7 @@ jobs:
           jobs = json.load(open("inbox/tts.json"))
           if isinstance(jobs, dict): jobs = [jobs]
           for job in jobs:
-              vid = job.get("voice_id") or (mine[0]["voice_id"] if mine else None)
+              vid = job.get("voice_id") or next((m["voice_id"] for m in mine if m["name"].strip(" .").lower()==job.get("voice_name","").strip(" .").lower()), None) or (mine[0]["voice_id"] if mine else None)
               if not vid: raise SystemExit("no cloned voice found")
               body = json.dumps({"text": job["text"], "model_id": job.get("model_id", "eleven_multilingual_v2"),
                                  "voice_settings": job.get("voice_settings", {"stability": 0.5, "similarity_boost": 0.8, "style": 0.2, "use_speaker_boost": True})}).encode()
