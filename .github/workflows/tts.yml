@@ -32,8 +32,14 @@ jobs:
               body = json.dumps({"text": job["text"], "model_id": job.get("model_id", "eleven_multilingual_v2"),
                                  "voice_settings": job.get("voice_settings", {"stability": 0.5, "similarity_boost": 0.8, "style": 0.2, "use_speaker_boost": True})}).encode()
               try:
-                  mp3 = call(f"https://api.elevenlabs.io/v1/text-to-speech/{vid}?output_format=mp3_44100_128", body)
-                  open(f"audio/{job['name']}.mp3", "wb").write(mp3)
+                  if job.get("timestamps"):
+                      import base64
+                      r = json.loads(call(f"https://api.elevenlabs.io/v1/text-to-speech/{vid}/with-timestamps?output_format=mp3_44100_128", body))
+                      open(f"audio/{job['name']}.mp3", "wb").write(base64.b64decode(r["audio_base64"]))
+                      json.dump(r.get("alignment"), open(f"audio/{job['name']}.align.json", "w"), ensure_ascii=False)
+                  else:
+                      mp3 = call(f"https://api.elevenlabs.io/v1/text-to-speech/{vid}?output_format=mp3_44100_128", body)
+                      open(f"audio/{job['name']}.mp3", "wb").write(mp3)
               except Exception as e:
                   open(f"audio/{job['name']}.error.txt", "w").write(str(e) + " " + getattr(e, "read", lambda: b"")().decode(errors="ignore")[:500])
           print("ok", [m["name"] for m in mine])

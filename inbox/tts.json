@@ -1,5 +1,5 @@
 [
- {"name": "reel_1038_rd_fiel", "voice_name": "Gregory RD", "model_id": "eleven_multilingual_v2",
-  "voice_settings": {"stability": 0.6, "similarity_boost": 1.0, "style": 0.0, "use_speaker_boost": true},
-  "text": "¡Mira esto, mi gente! ¿Tú está buscando apartamento en Bávaro? Este te va a encantar. Doral Residences, en Costa Bávaro. Dos habitaciones, dos baños, cocina equipada y terraza privada. Viene amueblado, con piscina, seguridad veinticuatro horas… ¡y tu mascota también es bienvenida! El mantenimiento ya va incluido. Mil ciento setenta y cinco dólares al mes. Escríbeme por WhatsApp y cuadramos la visita. ¡Dale!"}
+ {"name": "reel_1044_voz", "voice_name": "Gregory LRH", "model_id": "eleven_multilingual_v2", "timestamps": true,
+  "voice_settings": {"stability": 0.5, "similarity_boost": 0.9, "style": 0.25, "use_speaker_boost": true},
+  "text": "Mira lo que te dan mil ciento noventa y cinco dólares en Vista Cana. Ventura Golf, totalmente amueblado. Terraza para tu cafecito en la mañana. Cocina equipada, una habitación y baño y medio. Y en el residencial: campo de golf, gimnasio, playa artificial y piscina. Mantenimiento incluido, y tu mascota es bienvenida. Escríbeme por WhatsApp y cuadramos la visita."}
 ]
