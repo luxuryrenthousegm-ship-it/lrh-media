@@ -17,7 +17,11 @@ jobs:
           curl -sSL -o /tmp/in.mov "https://drive.usercontent.google.com/download?id=${ID}&export=download&confirm=t"
           ls -la /tmp/in.mov; file /tmp/in.mov
           ffprobe -v error -show_entries format=duration:stream=width,height,codec_name -of compact /tmp/in.mov | tee "${OUT%.mp4}.info.txt"
+          if [ "$(jq -r '.raw // false' inbox/video.json)" = "true" ]; then
+            cp /tmp/in.mov "$OUT"  # original sin recomprimir
+          else
           ffmpeg -y -loglevel error -i /tmp/in.mov -vf "scale='if(gt(iw,ih),1920,1080)':-2" -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart "$OUT"
+          fi
           ls -la "$OUT"
       - name: Commit
         run: |
