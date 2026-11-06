@@ -1,0 +1,8 @@
+stream|codec_name=hevc|width=1920|height=1080|
+stream|codec_name=aac
+stream|codec_name=unknown
+stream|codec_name=unknown
+stream|codec_name=unknown
+stream|codec_name=unknown
+stream|codec_name=unknown
+format|duration=82.503333
