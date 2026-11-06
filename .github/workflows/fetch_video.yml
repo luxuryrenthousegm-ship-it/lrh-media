@@ -1,0 +1,28 @@
+name: fetch-video
+on:
+  push:
+    paths: ['inbox/video.json']
+permissions:
+  contents: write
+jobs:
+  get:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and compress
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg jq > /dev/null
+          ID=$(jq -r .drive_id inbox/video.json); OUT=$(jq -r .out inbox/video.json)
+          mkdir -p "$(dirname "$OUT")"
+          curl -sSL -o /tmp/in.mov "https://drive.usercontent.google.com/download?id=${ID}&export=download&confirm=t"
+          ls -la /tmp/in.mov; file /tmp/in.mov
+          ffprobe -v error -show_entries format=duration:stream=width,height,codec_name -of compact /tmp/in.mov | tee "${OUT%.mp4}.info.txt"
+          ffmpeg -y -loglevel error -i /tmp/in.mov -vf "scale='if(gt(iw,ih),1920,1080)':-2" -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart "$OUT"
+          ls -la "$OUT"
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add src
+          git commit -m "Video D2-4" || echo nada
+          git push
