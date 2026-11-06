@@ -1,8 +1,5 @@
 [
- {"name": "reel_1038_rd_a", "voice_name": "Gregory RD", "model_id": "eleven_multilingual_v2",
-  "voice_settings": {"stability": 0.3, "similarity_boost": 0.9, "style": 0.6, "use_speaker_boost": true},
-  "text": "¡Mira esto, mi gente! ¿Tú está buscando apartamento en Bávaro? Este te va a encantar. Doral Residences, en Costa Bávaro. Dos habitaciones, dos baños, cocina equipada y terraza privada. Viene amueblado, con piscina, seguridad veinticuatro horas… ¡y tu mascota también es bienvenida! El mantenimiento ya va incluido. Mil ciento setenta y cinco dólares al mes. Escríbeme por WhatsApp y cuadramos la visita. ¡Dale!"},
- {"name": "reel_1038_rd_b", "voice_name": "Gregory RD", "model_id": "eleven_v3",
-  "voice_settings": {"stability": 0.5, "similarity_boost": 0.9, "style": 0.5, "use_speaker_boost": true},
-  "text": "[excited] ¡Mira esto, mi gente! ¿Tú está buscando apartamento en Bávaro? Este te va a encantar. Doral Residences, en Costa Bávaro. Dos habitaciones, dos baños, cocina equipada y terraza privada. Viene amueblado, con piscina, seguridad veinticuatro horas… ¡y tu mascota también es bienvenida! El mantenimiento ya va incluido. Mil ciento setenta y cinco dólares al mes. Escríbeme por WhatsApp y cuadramos la visita. ¡Dale!"}
+ {"name": "reel_1038_rd_fiel", "voice_name": "Gregory RD", "model_id": "eleven_multilingual_v2",
+  "voice_settings": {"stability": 0.6, "similarity_boost": 1.0, "style": 0.0, "use_speaker_boost": true},
+  "text": "¡Mira esto, mi gente! ¿Tú está buscando apartamento en Bávaro? Este te va a encantar. Doral Residences, en Costa Bávaro. Dos habitaciones, dos baños, cocina equipada y terraza privada. Viene amueblado, con piscina, seguridad veinticuatro horas… ¡y tu mascota también es bienvenida! El mantenimiento ya va incluido. Mil ciento setenta y cinco dólares al mes. Escríbeme por WhatsApp y cuadramos la visita. ¡Dale!"}
 ]
