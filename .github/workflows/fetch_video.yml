@@ -16,6 +16,7 @@ jobs:
           mkdir -p "$(dirname "$OUT")"
           curl -sSL -o /tmp/in.mov "https://drive.usercontent.google.com/download?id=${ID}&export=download&confirm=t"
           ls -la /tmp/in.mov; file /tmp/in.mov
+          if file /tmp/in.mov | grep -q HTML; then echo "No es público: Drive devolvió una página HTML"; exit 1; fi
           ffprobe -v error -show_entries format=duration:stream=width,height,codec_name -of compact /tmp/in.mov | tee "${OUT%.mp4}.info.txt"
           if [ "$(jq -r '.raw // false' inbox/video.json)" = "true" ]; then
             cp /tmp/in.mov "$OUT"  # original sin recomprimir
