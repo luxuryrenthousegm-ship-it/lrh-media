@@ -1,0 +1,36 @@
+name: upscale
+on:
+  push:
+    paths: ['inbox/upscale.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  up:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.10'}
+      - name: Real-ESRGAN (CPU)
+        run: |
+          pip -q install torch==2.0.1 torchvision==0.15.2 --index-url https://download.pytorch.org/whl/cpu
+          pip -q install basicsr==1.4.2 realesrgan==0.3.0 opencv-python-headless "numpy<2"
+          curl -sSL -o x2.pth https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.1/RealESRGAN_x2plus.pth
+          python - <<'PY'
+          import json, cv2
+          from basicsr.archs.rrdbnet_arch import RRDBNet
+          from realesrgan import RealESRGANer
+          m = RRDBNet(num_in_ch=3, num_out_ch=3, num_feat=64, num_block=23, num_grow_ch=32, scale=2)
+          up = RealESRGANer(scale=2, model_path="x2.pth", model=m, tile=400, tile_pad=10, pre_pad=0, half=False)
+          for job in json.load(open("inbox/upscale.json")):
+              img = cv2.imread(job["in"], cv2.IMREAD_COLOR)
+              out, _ = up.enhance(img, outscale=job.get("scale", 2))
+              cv2.imwrite(job["out"], out, [cv2.IMWRITE_PNG_COMPRESSION, 3]); print(job["out"], out.shape)
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add src && git commit -m "Fotos ampliadas (Real-ESRGAN)" || echo nada
+          git pull --rebase -q && git push
