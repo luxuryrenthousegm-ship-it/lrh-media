@@ -14,7 +14,7 @@ ov = Image.new("RGBA", (W, H)); od = ImageDraw.Draw(ov)
 for y in range(H):
     a = 0.0
     if y < 260: a = 0.28 * (1 - y / 260)
-    if y > 800: a = max(a, 0.88 * ((y - 800) / (H - 800)) ** 1.0)
+    if y > 700: a = max(a, 0.9 * ((y - 700) / (H - 700)) ** 0.95)
     od.line([(0, y), (W, y)], fill=(10, 14, 13, int(255 * a)))
 ph.alpha_composite(ov); d = ImageDraw.Draw(ph)
 
@@ -25,6 +25,9 @@ def spaced(y, t, f, fill, track):
 WHITE = (255, 255, 255)
 spaced(52, "LUXURY", corm(500, 34), (255, 255, 255, 235), 9)
 spaced(94, "RENT HOUSE", inter("Inter-Regular.otf", 11), (255, 255, 255, 220), 5)
+hook = ImageFont.truetype(f"{FS}/cormorant-garamond-latin-500-italic.woff", 50)
+for k, ln in enumerate(["¿Y si vivieras donde hay", "golf, piscina y gimnasio?"]):
+    d.text(((W - d.textlength(ln, font=hook)) / 2, 930 + k * 58), ln, font=hook, fill=(255, 255, 255, 245))
 spaced(1078, "FOR RENT", inter("Inter-Medium.otf", 17), (255, 255, 255, 235), 6)
 spaced(1108, "PANORAMA PARK", corm(400, 88), WHITE, 12)
 spaced(1232, "VISTA CANA   -   1 HABITACIÓN   -   1.5 BAÑOS   -   MASCOTAS", inter("Inter-Regular.otf", 16), (255, 255, 255, 230), 4)
