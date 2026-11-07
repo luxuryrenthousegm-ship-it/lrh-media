@@ -1,0 +1,37 @@
+name: music
+on:
+  push:
+    paths: ['inbox/music.json']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  music:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate music (ElevenLabs Music)
+        env:
+          XI: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, urllib.error
+          key = os.environ["XI"]; os.makedirs("audio", exist_ok=True)
+          jobs = json.load(open("inbox/music.json"))
+          if isinstance(jobs, dict): jobs = [jobs]
+          for job in jobs:
+              body = {"prompt": job["prompt"], "music_length_ms": job["ms"], "model_id": job.get("model_id", "music_v1")}
+              if job.get("instrumental", True): body["force_instrumental"] = True
+              req = urllib.request.Request("https://api.elevenlabs.io/v1/music?output_format=mp3_44100_192", data=json.dumps(body).encode(),
+                                           headers={"xi-api-key": key, "Content-Type": "application/json"})
+              try:
+                  open(f"audio/{job['name']}.mp3", "wb").write(urllib.request.urlopen(req, timeout=300).read())
+              except urllib.error.HTTPError as e:
+                  open(f"audio/{job['name']}.error.txt", "w").write(f"{e.code} {e.read().decode(errors='replace')}")
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add audio && git commit -m "Música generada" || echo nada
+          git push
