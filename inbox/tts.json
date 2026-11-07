@@ -1,5 +1,3 @@
-[
- {"name": "reel_1044_voz", "voice_name": "Gregory LRH", "model_id": "eleven_multilingual_v2", "timestamps": true,
-  "voice_settings": {"stability": 0.5, "similarity_boost": 0.9, "style": 0.25, "use_speaker_boost": true},
-  "text": "Mira lo que te dan mil ciento noventa y cinco dólares en Vista Cana. Ventura Golf, totalmente amueblado. Terraza para tu cafecito en la mañana. Cocina equipada, una habitación y baño y medio. Y en el residencial: campo de golf, gimnasio, playa artificial y piscina. Mantenimiento incluido, y tu mascota es bienvenida. Escríbeme por WhatsApp y cuadramos la visita."}
-]
+[{"name": "reel_primo_voz", "voice_id": "KHC27paaiobUCWU1IxW9", "model_id": "eleven_multilingual_v2", "timestamps": true,
+  "voice_settings": {"stability": 0.45, "similarity_boost": 0.9, "style": 0.35, "use_speaker_boost": true},
+  "text": "Mi primo jura que en Punta Cana no hay na' decente por menos de dos mil dólares... ¡Ven acá, primo! Mira esto: amueblado, con terraza, cocina, una habitación, baño y medio, ciento diez metros... y el mantenimiento incluido. Y el proyecto tiene golf, playa artificial y gimnasio. ¿Y cuánto? Mil ciento noventa y cinco dólares al mes. ¿Primo, y ahora? Etiquétalo ahí."}]
