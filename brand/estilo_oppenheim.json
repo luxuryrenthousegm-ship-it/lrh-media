@@ -1,0 +1,26 @@
+{
+ "nombre": "Estilo Oppenheim (referencia)",
+ "paleta": {
+  "Crepúsculo azul": "#3B74A5",
+  "Cielo claro": "#9FB9DC",
+  "Azul medio": "#6B96C3",
+  "Luz cálida interior": "#C69869",
+  "Ámbar": "#916B47",
+  "Blanco piedra": "#E1DFE2",
+  "Arena": "#CBBEB4",
+  "Gris piedra": "#A39FA1",
+  "Gris cálido": "#827C7A",
+  "Grafito": "#384147",
+  "Carbón cálido": "#2F2C21",
+  "Negro": "#14140D",
+  "Rojo acento": "#A82F3B"
+ },
+ "tipografia_por_contenido": {
+  "propiedades": "foto limpia, poco o ningún texto",
+  "editorial/prensa": "Playfair Display Italic o Bodoni Moda Italic + Montserrat mayúsculas espaciadas",
+  "anuncios/eventos": "serif itálica en mayúsculas espaciadas + Montserrat",
+  "estilo de vida": "sans condensada gruesa en mayúsculas",
+  "datos/educativo": "Inter Display gruesa"
+ },
+ "regla": "Variar paleta y letras según el contenido; no siempre Colores Luxury. Nunca aspecto de IA: elegante, sofisticado, cámara de máxima calidad, natural."
+}
