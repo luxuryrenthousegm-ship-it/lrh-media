@@ -1,0 +1,28 @@
+name: fetch-multi
+on:
+  push:
+    paths: ['inbox/multi.json']
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download
+        run: |
+          for D in $(jq -r 'keys[]' inbox/multi.json); do
+            mkdir -p "$D"; i=1
+            for u in $(jq -r --arg d "$D" '.[$d][]' inbox/multi.json); do
+              curl -sSL --fail -o "$D/p$i.jpg" "$u" || echo "fallo $D p$i"
+              i=$((i+1))
+            done
+            ls -la "$D"; file "$D"/* | head -30
+          done
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add src
+          git commit -m "Fotos de propiedades (lote)" || echo nada
+          git push
