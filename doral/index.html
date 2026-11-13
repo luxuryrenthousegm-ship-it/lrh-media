@@ -1,0 +1,381 @@
+<title>Doral Residences 1051</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: portada con oferta y CTA → franja de datos → reloj de entrega 36 h → diferencias → galería → costo de entrada → proceso → requisitos → FAQ → cierre con WhatsApp */
+:root{
+  /* Colores Luxury, tomados del logo */
+  --green:#343B34; --green-2:#2A302A; --stone:#9C9893; --stone-lt:#DCD9D4; --stone-dk:#6F6B66;
+  --paper:#FFFFFF; --mist:#F1EFEC; --ink:#232823; --muted:#5F635E; --wa:#1F8A4C;
+  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --body:"Jost","Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:300;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--green)}
+img{display:block;max-width:100%}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-weight:500;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--stone-dk)}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;line-height:1.08}
+h2{font-size:clamp(32px,4.6vw,52px)}
+h3{font-size:24px}
+p{margin:0}
+section{padding-block:clamp(60px,9vw,104px)}
+.head{display:grid;gap:12px;max-width:680px;margin-bottom:40px}
+.head p{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:17px 26px;font:500 13px/1 var(--body);letter-spacing:.18em;text-transform:uppercase;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:background .2s,transform .2s}
+.btn:hover{transform:translateY(-1px)}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-wa:hover{background:#18733E}
+.btn-dark{background:var(--green);color:#fff}
+.btn-dark:hover{background:var(--green-2)}
+.btn-ghost{color:#fff;border-color:rgba(255,255,255,.75)}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+.btn svg{width:18px;height:18px;flex:none}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--stone-dk);outline-offset:3px}
+
+/* Portada */
+.hero{position:relative;min-height:min(92vh,880px);display:grid;align-items:end;color:#fff;background:var(--green)}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 55%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(30,35,30,.72) 0%,rgba(30,35,30,.35) 45%,rgba(30,35,30,0) 75%),linear-gradient(180deg,rgba(30,35,30,.5) 0%,rgba(30,35,30,0) 22%,rgba(30,35,30,.15) 50%,rgba(30,35,30,.88) 100%)}
+.topbar{position:absolute;top:0;left:0;right:0;z-index:2;padding-top:calc(20px + env(safe-area-inset-top,0px))}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{color:#fff;text-decoration:none;line-height:1;text-align:center}
+.brand b{display:block;font:400 24px var(--display);letter-spacing:.34em;padding-left:.34em}
+.brand span{display:block;font:400 9px var(--body);letter-spacing:.5em;padding-left:.5em;margin-top:6px}
+.topbar a.small{color:#fff;font-size:13px;letter-spacing:.12em;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5)}
+.hero-inner{position:relative;z-index:2;padding-block:130px 56px;display:grid;gap:18px;max-width:760px}
+.badge{justify-self:start;display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.14);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35);padding:8px 14px;font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+.badge i{width:8px;height:8px;border-radius:50%;background:#7FD69D;display:inline-block;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.hero h1{font-size:clamp(40px,7vw,84px)}
+.hero h1 em{font-style:italic}
+.hero p.sub{font-size:clamp(17px,2vw,20px);max-width:44ch;color:rgba(255,255,255,.9)}
+.hero-price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.hero-price strong{font:400 clamp(38px,5vw,54px)/1 var(--display)}
+.hero-price small{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+
+/* Franja de datos */
+.facts{background:var(--green);color:#fff;padding-block:26px}
+.facts ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:18px}
+.facts li{display:grid;gap:2px;text-align:center}
+.facts b{font:400 30px/1.1 var(--display)}
+.facts span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone-lt)}
+
+/* Reloj de entrega */
+.clock{background:var(--mist)}
+.clock .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.timer{background:var(--green);color:#fff;padding:clamp(28px,4vw,44px);display:grid;gap:18px}
+.timer .eyebrow{color:var(--stone-lt)}
+.digits{display:flex;gap:10px;flex-wrap:wrap}
+.digits div{flex:1 1 70px;background:var(--green-2);padding:14px 8px;text-align:center}
+.digits b{display:block;font:400 clamp(38px,5vw,54px)/1 var(--display);font-variant-numeric:tabular-nums}
+.digits span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--stone-lt)}
+.timer p{color:var(--stone-lt)}
+.timer p strong{color:#fff;font-weight:500}
+
+/* Diferencias */
+.diffs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#DDDAD5;border:1px solid #DDDAD5}
+.diff{background:var(--paper);padding:30px 26px;display:grid;gap:10px;align-content:start;min-width:0}
+.diff svg{width:30px;height:30px;color:var(--green)}
+.diff p{color:var(--muted)}
+
+/* Galería */
+.gallery{background:var(--mist)}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:clamp(150px,18vw,220px);gap:10px}
+.grid button{padding:0;border:0;background:none;cursor:zoom-in;overflow:hidden;position:relative}
+.grid img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.grid button:hover img{transform:scale(1.04)}
+.grid figcaption{position:absolute;left:12px;bottom:10px;color:#fff;font-size:11px;letter-spacing:.24em;text-transform:uppercase;text-shadow:0 1px 8px rgba(0,0,0,.55)}
+.g1{grid-column:span 3;grid-row:span 2}.g2,.g3{grid-column:span 3}.g4,.g5,.g6{grid-column:span 2;grid-row:span 2}
+
+/* Costo de entrada */
+.cost .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,64px);align-items:start}
+.ledger{border:1px solid #DDDAD5}
+.ledger div{display:flex;justify-content:space-between;gap:16px;padding:18px 22px;border-bottom:1px solid #DDDAD5}
+.ledger div span:last-child{font-variant-numeric:tabular-nums;font-weight:400}
+.ledger .total{background:var(--green);color:#fff;border-bottom:0}
+.ledger .total span:last-child{font:400 30px/1 var(--display)}
+.ledger small{display:block;color:var(--muted);font-size:13px}
+.ledger .total small{color:var(--stone-lt)}
+.mini{margin:4px 0 12px;border:1px solid #DDDAD5;max-width:440px}
+.mini div{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid #DDDAD5;font-variant-numeric:tabular-nums}
+.mini .t{background:var(--green);color:#fff;border-bottom:0;font-weight:600}
+.after b{color:var(--green)}
+.incl{display:grid;gap:14px}
+.incl ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.incl li{display:flex;gap:12px;align-items:baseline}
+.incl li::before{content:"✓";color:var(--wa);font-weight:600}
+
+/* Proceso */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:s}
+.steps li{display:grid;gap:8px;padding-top:18px;border-top:2px solid var(--green);counter-increment:s;min-width:0}
+.steps li::before{content:"Paso " counter(s);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--stone-dk)}
+.steps p{color:var(--muted)}
+
+/* Requisitos + FAQ */
+.reqs{background:var(--mist)}
+.reqs .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(28px,5vw,64px);align-items:start}
+.req-card{background:var(--paper);padding:30px;display:grid;gap:16px;border:1px solid #DDDAD5}
+.req-card ol{margin:0;padding-left:22px;display:grid;gap:10px}
+.faq details{border-bottom:1px solid #D6D3CE;padding-block:4px}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:16px 0;font-weight:400;font-size:18px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:400 24px/1 var(--display);color:var(--stone-dk)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{color:var(--muted);padding-bottom:18px;max-width:62ch}
+
+/* Cierre */
+.close{background:var(--green);color:#fff;text-align:center}
+.close .wrap{display:grid;gap:20px;justify-items:center}
+.close p{color:var(--stone-lt);max-width:52ch}
+.phone{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;color:var(--stone-lt);font-size:14px}
+.phone code{font:400 22px var(--display);color:#fff;user-select:all}
+.copy{background:none;border:1px solid rgba(220,217,212,.6);color:var(--stone-lt);font:500 11px var(--body);letter-spacing:.2em;text-transform:uppercase;padding:8px 12px;cursor:pointer}
+footer{background:var(--green-2);color:var(--stone-lt);padding-block:36px calc(100px + env(safe-area-inset-bottom,0px));font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px}
+footer a{color:#fff}
+
+/* Barra fija */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--green);border-top:1px solid rgba(220,217,212,.3);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;justify-content:space-between;gap:12px;color:#fff}
+.sticky strong{font:400 24px/1 var(--display)}
+.sticky small{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--stone-lt)}
+.sticky .btn{padding:13px 18px}
+.sticky .label-lg{display:inline}
+.lightbox{position:fixed;inset:0;z-index:30;background:rgba(30,35,30,.96);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lightbox[hidden]{display:none!important}
+.lightbox img{max-height:86vh;width:auto;max-width:100%}
+.lightbox button{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:calc(16px + env(safe-area-inset-right,0px));background:none;border:1px solid #fff;color:#fff;font:500 12px var(--body);letter-spacing:.2em;padding:10px 14px;cursor:pointer}
+
+@media (max-width:900px){
+  .clock .wrap,.cost .wrap,.reqs .wrap{grid-template-columns:1fr}
+  .diffs{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:44vw}
+  .g1{grid-column:span 2;grid-row:span 2}.g2,.g3,.g4,.g5,.g6{grid-column:span 1;grid-row:span 1}
+}
+@media (max-width:560px){
+  .diffs,.steps{grid-template-columns:1fr}
+  .topbar a.small{display:none}.topbar .wrap{justify-content:center}
+  .sticky .label-lg{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3.9 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.4Z"/></symbol>
+</svg>
+
+<header class="hero" id="inicio">
+  <img src="img/exterior.jpg" alt="Doral Residences de noche, con la piscina iluminada">
+  <div class="topbar"><div class="wrap">
+    <a class="brand" href="#inicio"><b>LUXURY</b><span>RENT HOUSE</span></a>
+    <a class="small" href="#preguntas">Preguntas frecuentes</a>
+  </div></div>
+  <div class="wrap hero-inner">
+    <span class="badge"><i></i>Disponible · Entrega en 36 horas</span>
+    <h1>Doral Residences. <em>Tus llaves en 36 horas.</em></h1>
+    <p class="sub">2 habitaciones, amueblado y con el mantenimiento incluido en Costa Bávaro. Llega con tu maleta: lo demás ya está.</p>
+    <div class="hero-price"><strong>US$1,150</strong><small>al mes · mantenimiento e internet incluidos</small></div>
+    <div class="cta-row">
+      <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener" data-msg="Hola, quiero el apartamento de 2 habitaciones en Doral Residences (US$1,150/mes). ¿Cuándo lo puedo ver?"><svg><use href="#wa"/></svg>Escríbenos por WhatsApp</a>
+      <a class="btn btn-ghost wa" href="#" target="_blank" rel="noopener" data-msg="Hola, quiero agendar una visita hoy al apartamento de 2 habitaciones en Doral Residences.">Agendar visita hoy</a>
+    </div>
+  </div>
+</header>
+
+<section class="facts" aria-label="Datos principales" style="padding-block:26px">
+  <div class="wrap"><ul>
+    <li><b>2</b><span>Habitaciones</span></li>
+    <li><b>2</b><span>Baños</span></li>
+    <li><b>73 m²</b><span>Construidos</span></li>
+    <li><b>1</b><span>Parqueo</span></li>
+    <li><b>Amueblado</b><span>Llave en mano</span></li>
+    <li><b>24 h</b><span>Vigilancia</span></li>
+  </ul></div>
+</section>
+
+<section class="clock">
+  <div class="wrap">
+    <div class="head" style="margin:0">
+      <span class="eyebrow">Entrega inmediata</span>
+      <h2>Mientras otros te hacen esperar semanas, tú te mudas en 36 horas.</h2>
+      <p>Firmas, pagas tu entrada y en 36 horas tienes las llaves en la mano. El apartamento ya está amueblado y listo: no tienes que comprar ni instalar nada.</p>
+      <div class="cta-row" style="margin-top:8px"><a class="btn btn-dark wa" href="#" target="_blank" rel="noopener" data-msg="Hola, quiero reservar el apartamento de Doral Residences y recibir las llaves en 36 horas.">Reservar ahora</a></div>
+    </div>
+    <div class="timer" aria-live="off">
+      <span class="eyebrow">Si reservas ahora, recibes tus llaves en</span>
+      <div class="digits" id="digits">
+        <div><b id="dh">36</b><span>Horas</span></div>
+        <div><b id="dm">00</b><span>Minutos</span></div>
+        <div><b id="ds">00</b><span>Segundos</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Por qué con Luxury Rent House</span>
+      <h2>Seis cosas que no vas a encontrar en otra agencia</h2>
+    </div>
+    <div class="diffs">
+      <div class="diff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Entrega en 36 horas</h3><p>Llave en mano y entrega inmediata. Sin esperar remodelaciones ni muebles.</p></div>
+      <div class="diff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6l-8-3Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg><h3>Propiedad depurada</h3><p>Verificamos al propietario y la documentación antes de publicarla. Alquilas con tranquilidad.</p></div>
+      <div class="diff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="5" width="16" height="14" rx="1"/><path d="M8 10h8M8 14h5"/></svg><h3>Precio fijo, todo claro</h3><p>US$1,150 al mes con mantenimiento e internet incluidos. Contrato de solo US$100. Sin costos ocultos.</p></div>
+      <div class="diff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-3.5 3.8-5.5 7-5.5s6 2 7 5.5"/></svg><h3>Administración directa</h3><p>Un solo contacto para tu contrato, tus pagos y cualquier avería. Respondemos nosotros, no un intermediario.</p></div>
+      <div class="diff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="5" width="16" height="15" rx="1"/><path d="M4 9h16M9 3v4M15 3v4"/></svg><h3>Internet incluido</h3><p>Llegas y ya estás conectado. El internet va incluido en tu renta, junto con el mantenimiento.</p></div>
+      <div class="diff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="6" width="18" height="13" rx="1"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><h3>Real, como en las fotos</h3><p>Lo que ves aquí es lo que recibes. Agenda tu visita hoy mismo, en persona o por videollamada, y compruébalo antes de firmar.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="galeria">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">Recorrido</span><h2>Así se vive adentro</h2></div>
+    <div class="grid">
+      <button class="g1" data-full="img/sala.jpg"><img src="img/sala.jpg" alt="Sala amueblada" loading="lazy"><figcaption>Sala</figcaption></button>
+      <button class="g2" data-full="img/habitacion.jpg"><img src="img/habitacion.jpg" alt="Habitación principal" loading="lazy" style="object-position:50% 60%"><figcaption>Habitación</figcaption></button>
+      <button class="g3" data-full="img/comedor.jpg"><img src="img/comedor.jpg" alt="Comedor" loading="lazy" style="object-position:50% 40%"><figcaption>Comedor</figcaption></button>
+      <button class="g4" data-full="img/bano.jpg"><img src="img/bano.jpg" alt="Baño con ducha de vidrio" loading="lazy"><figcaption>Baño</figcaption></button>
+      <button class="g5" data-full="img/bano2.jpg"><img src="img/bano2.jpg" alt="Segundo baño" loading="lazy"><figcaption>Segundo baño</figcaption></button>
+      <button class="g6" data-full="img/exterior.jpg"><img src="img/exterior.jpg" alt="Residencial de noche con piscina" loading="lazy" style="object-position:70% 70%"><figcaption>Residencial</figcaption></button>
+    </div>
+  </div>
+</section>
+
+<section class="cost">
+  <div class="wrap">
+    <div>
+      <div class="head"><span class="eyebrow">Sin sorpresas</span><h2>Cuánto necesitas para mudarte</h2><p>Esto es todo lo que pagas para entrar. Después, solo tu renta mensual.</p></div>
+      <div class="ledger">
+        <div><span>Primer mes adelantado</span><span>US$1,150</span></div>
+        <div><span>Depósito (1 mes)<small>Reembolsable al terminar el contrato</small></span><span>US$1,150</span></div>
+        <div><span>Contrato</span><span>US$100</span></div>
+        <div class="total"><span>Total para entrar<small>Luego, US$1,150 al mes</small></span><span>US$2,400</span></div>
+      </div>
+    </div>
+    <div class="incl">
+      <span class="eyebrow">Incluido en tu renta</span>
+      <h3>Lo que ya está pagado</h3>
+      <ul>
+        <li>Mantenimiento del residencial</li>
+        <li>Apartamento completamente amueblado</li>
+        <li>Internet</li>
+        <li>Nevera, estufa y microondas</li>
+        <li>Lavadora</li>
+        <li>Aire acondicionado</li>
+        <li>Piscina, cancha de tenis y área infantil</li>
+        <li>Residencial cerrado con cámaras y vigilancia 24 h</li>
+        <li>1 parqueo</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><span class="eyebrow">Cómo funciona</span><h2>De tu mensaje a tus llaves</h2></div>
+    <ol class="steps">
+      <li><h3>Escríbenos</h3><p>Por WhatsApp. Te respondemos y agendamos tu visita.</p></li>
+      <li><h3>Visítalo</h3><p>En persona o por videollamada, hoy mismo si quieres.</p></li>
+      <li><h3>Firma y paga</h3><p>Entregas tus documentos, firmas el contrato y pagas tu entrada de US$2,400.</p></li>
+      <li><h3>Recibe tus llaves</h3><p>En 36 horas, llave en mano.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="reqs" id="preguntas">
+  <div class="wrap">
+    <div class="req-card">
+      <span class="eyebrow">Requisitos</span>
+      <h3>Solo necesitas tres documentos</h3>
+      <ol>
+        <li>Cédula o pasaporte</li>
+        <li>Carta de trabajo o comprobante de ingresos</li>
+        <li>Estados de cuenta de los últimos 6 meses</li>
+      </ol>
+      <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener" data-msg="Hola, ya tengo mis documentos y quiero alquilar el apartamento de Doral Residences."><svg><use href="#wa"/></svg>Ya tengo mis documentos</a>
+    </div>
+    <div class="faq">
+      <div class="head" style="margin-bottom:12px"><span class="eyebrow">Preguntas frecuentes</span><h2>Lo que todos preguntan</h2></div>
+      <details open><summary>¿Cuánto pago para mudarme?</summary><div class="mini"><div><span>Primer mes adelantado</span><span>US$1,150</span></div><div><span>Depósito (reembolsable)</span><span>US$1,150</span></div><div><span>Contrato</span><span>US$100</span></div><div class="t"><span>Total para mudarte</span><span>US$2,400</span></div></div><p class="after">Después, solo pagas <b>US$1,150 al mes</b>.</p></details>
+      <details><summary>¿El mantenimiento está incluido?</summary><p>Sí. Los US$1,150 al mes ya incluyen el mantenimiento del residencial y el internet.</p></details>
+      <details><summary>¿En cuánto tiempo me puedo mudar?</summary><p>En 36 horas después de firmar el contrato y pagar tu entrada. El apartamento está listo, amueblado y con entrega inmediata.</p></details>
+      <details><summary>¿Me devuelven el depósito?</summary><p>Sí. El depósito es reembolsable al terminar el contrato.</p></details>
+      <details><summary>¿Qué documentos necesito?</summary><p>Tu cédula o pasaporte, una carta de trabajo o un comprobante de ingresos, y tus estados de cuenta de los últimos 6 meses.</p></details>
+      <details><summary>¿Qué trae el apartamento?</summary><p>Viene amueblado, con internet, nevera, estufa, microondas, lavadora y aire acondicionado. Tiene 2 habitaciones, 2 baños, 73 m² y 1 parqueo.</p></details>
+      <details><summary>¿Qué significa que la propiedad está depurada?</summary><p>Que antes de ofrecerla verificamos quién es el propietario y su documentación. Así sabes que alquilas una propiedad en regla.</p></details>
+      <details><summary>¿Puedo verlo antes de firmar?</summary><p>Claro. Agenda tu visita hoy, en persona o por videollamada.</p></details>
+      <details><summary>¿Qué tiene el residencial?</summary><p>Piscina, cancha de tenis, área de juegos infantiles, lobby, gas común, cámaras y vigilancia 24 horas. Es un residencial cerrado y tiene centros comerciales cerca.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--stone-lt)">Doral Residences · Costa Bávaro</span>
+    <h2>Este apartamento no va a esperar.</h2>
+    <p>Nos quedan solo 3 unidades disponibles de 30. Escríbenos ahora y agenda tu visita hoy.</p>
+    <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener" data-msg="Hola, quiero el apartamento de 2 habitaciones en Doral Residences (US$1,150/mes) antes de que se alquile."><svg><use href="#wa"/></svg>Quiero este apartamento</a>
+    <div class="phone">O escríbenos al <code id="tel">+1 849-247-2107</code><button class="copy" type="button" id="copy">Copiar</button></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><b style="font:400 18px var(--display);letter-spacing:.3em;color:#fff">LUXURY RENT HOUSE</b><br>Administración y alquiler a largo plazo en Bávaro y Punta Cana</div>
+    <div>Gal Business Center, Boulevard 1ro de Noviembre, Punta Cana<br>luxuryrenthousegm@gmail.com · <a href="https://www.instagram.com/luxuryrenthouserd/" target="_blank" rel="noopener">@luxuryrenthouserd</a></div>
+  </div>
+</footer>
+
+<div class="sticky">
+  <div><strong>US$1,150</strong><small>al mes · mant. e internet incl.</small></div>
+  <a class="btn btn-wa wa" href="#" target="_blank" rel="noopener" data-msg="Hola, me interesa el apartamento de 2 habitaciones en Doral Residences (US$1,150/mes)."><svg><use href="#wa"/></svg><span class="label-lg">Escríbenos por&nbsp;</span>WhatsApp</a>
+</div>
+
+<div class="lightbox" id="lb" hidden><button type="button" id="lbclose">Cerrar</button><img id="lbimg" alt=""></div>
+
+<script>
+(function(){
+  var NUM='18492472107';
+  document.querySelectorAll('a.wa').forEach(function(a){
+    a.href='https://wa.me/'+NUM+'?text='+encodeURIComponent(a.dataset.msg||'Hola');
+  });
+
+  // Reloj de entrega: 36 h desde este momento, con la fecha real en que estarían las llaves
+  var DAYS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+  var MONTHS=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  var start=Date.now(), DUR=36*3600*1000;
+  function pad(n){return String(n).padStart(2,'0');}
+  function tick(){
+    var left=Math.max(0,DUR-(Date.now()-start));
+    var h=Math.floor(left/3600000), m=Math.floor(left%3600000/60000), s=Math.floor(left%60000/1000);
+    document.getElementById('dh').textContent=pad(h);document.getElementById('dm').textContent=pad(m);document.getElementById('ds').textContent=pad(s);
+    var k=new Date(Date.now()+DUR), hr=k.getHours(), ap=hr<12?'a. m.':'p. m.', h12=hr%12||12;
+    var kd=document.getElementById('keydate'); if(kd) kd.textContent=DAYS[k.getDay()]+' '+k.getDate()+' de '+MONTHS[k.getMonth()]+', '+h12+':'+pad(k.getMinutes())+' '+ap;
+  }
+  tick(); setInterval(tick,1000);
+
+  var lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg');
+  document.querySelectorAll('.grid button').forEach(function(b){
+    b.addEventListener('click',function(){lbimg.src=b.dataset.full;lbimg.alt=b.querySelector('img').alt;lb.hidden=false;document.getElementById('lbclose').focus();});
+  });
+  function close(){lb.hidden=true;}
+  document.getElementById('lbclose').addEventListener('click',close);
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+
+  document.getElementById('copy').addEventListener('click',function(){
+    var t=document.getElementById('tel'), btn=this;
+    function sel(){var r=document.createRange();r.selectNodeContents(t);var s=getSelection();s.removeAllRanges();s.addRange(r);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText('+18492472107').then(function(){btn.textContent='Copiado';},function(){sel();btn.textContent='Selecciónalo';});}else{sel();}
+  });
+})();
+</script>
