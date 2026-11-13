@@ -7,6 +7,7 @@ S = "/tmp/claude-0/-home-claude/3b614509-f312-5864-9c46-7ad2dcf6e6f9/scratchpad"
 SRC = f"{S}/lp1051/img"; OUT = f"{S}/ads_maciel"; os.makedirs(OUT, exist_ok=True)
 K = 2
 NEGRO, CALIDO, BLANCO, CREMA = (14, 14, 12), (198, 152, 105), (255, 255, 255), (245, 238, 228)
+VERDELUX, CHAMP = (52, 59, 52), (233, 222, 201)
 osw = lambda wt, sz: ImageFont.truetype(f"{F}/oswald-latin-{wt}-normal.woff", int(sz * K))
 mont = lambda wt, sz: ImageFont.truetype(f"{F}/montserrat-latin-{wt}-normal.woff", int(sz * K))
 
@@ -55,7 +56,7 @@ def single(lang, w, h, base, story=False):
     for ln in t["hook"]: y = box(d, w, y, ln, 66 if not story else 72)
     yb = (1920 - 860) if story else (1350 - 330)
     y = box(d, w, yb, t["l1"], 46)
-    y = box(d, w, y, t["l2"], 58, bg=CALIDO, fg=NEGRO)
+    y = box(d, w, y, t["l2"], 58, bg=VERDELUX, fg=CHAMP)
     tag(d, w, y + 14, t["l3"], 16)
     save(img, base)
 
@@ -76,11 +77,11 @@ W, H = 1080 * K, 1350 * K
 for lang in ("es", "en"):
     for i, (n, a, b, fy) in enumerate(CAR[lang], 1):
         img = shade(photo(n, W, H, fy), bottom=0.8, start=0.6); d = ImageDraw.Draw(img)
-        y = box(d, W, 1090, a, 50); box(d, W, y, b, 38, bg=CALIDO, fg=NEGRO)
+        y = box(d, W, 1090, a, 50); box(d, W, y, b, 38, bg=VERDELUX, fg=CHAMP)
         save(img, f"M_{lang}_car_{i}")
     img = Image.new("RGBA", (W, H), (*NEGRO, 255)); d = ImageDraw.Draw(img)
     tag(d, W, 120, "MACIEL · LUXURY RENT HOUSE", 16)
-    y = box(d, W, 420, END[lang][0], 84, bg=CALIDO, fg=NEGRO)
+    y = box(d, W, 420, END[lang][0], 84, bg=VERDELUX, fg=CHAMP)
     tag(d, W, y + 30, END[lang][1], 20)
     box(d, W, y + 120, END[lang][2], 44)
     tag(d, W, 1180, "@MACIEL.LUXURYRH", 18)
