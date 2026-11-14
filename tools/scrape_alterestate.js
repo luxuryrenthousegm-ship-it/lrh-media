@@ -1,5 +1,5 @@
 const { chromium } = require('playwright');
-const fs = require('fs');
+const fs = require('fs'); fs.mkdirSync('data', { recursive: true });
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage();
   const api = [];
