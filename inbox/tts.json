@@ -1,3 +1,1 @@
-[{"name": "reel_primo_voz", "voice_id": "KHC27paaiobUCWU1IxW9", "model_id": "eleven_multilingual_v2", "timestamps": true,
-  "voice_settings": {"stability": 0.45, "similarity_boost": 0.9, "style": 0.35, "use_speaker_boost": true},
-  "text": "Mi primo jura que en Punta Cana no hay na' decente por menos de dos mil dólares... ¡Ven acá, primo! Mira esto: amueblado, con terraza, cocina, una habitación, baño y medio, ciento diez metros... y el mantenimiento incluido. Y el proyecto tiene golf, playa artificial y gimnasio. ¿Y cuánto? Mil ciento noventa y cinco dólares al mes. ¿Primo, y ahora? Etiquétalo ahí."}]
+[{"name":"test_daniela","voice_id":"F3a2wFOCvgmg3VVaWY1j","text":"Bienvenida a Doral Residences. Aquí, todo está incluido.","model_id":"eleven_multilingual_v2"}]
