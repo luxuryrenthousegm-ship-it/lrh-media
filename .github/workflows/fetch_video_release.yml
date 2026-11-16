@@ -1,0 +1,21 @@
+name: fetch-video-release
+on:
+  push:
+    paths: ['inbox/video_release.json']
+permissions:
+  contents: write
+jobs:
+  get:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download original from Drive and attach to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ID=$(jq -r .drive_id inbox/video_release.json); NAME=$(jq -r .name inbox/video_release.json); TAG=$(jq -r '.tag // "raw-media"' inbox/video_release.json)
+          curl -sSL -o "/tmp/$NAME" "https://drive.usercontent.google.com/download?id=${ID}&export=download&confirm=t"
+          ls -la "/tmp/$NAME"; file "/tmp/$NAME"
+          if file "/tmp/$NAME" | grep -q HTML; then echo "No es público"; exit 1; fi
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Material original" --notes "Videos originales sin recomprimir"
+          gh release upload "$TAG" "/tmp/$NAME" --clobber
