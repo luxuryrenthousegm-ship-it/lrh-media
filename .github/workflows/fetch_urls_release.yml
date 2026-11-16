@@ -1,0 +1,21 @@
+name: fetch-urls-release
+on:
+  push:
+    paths: ['inbox/urls_release.json']
+permissions:
+  contents: write
+jobs:
+  get:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download URLs and attach to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG=$(jq -r '.tag // "raw-media"' inbox/urls_release.json)
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Material" --notes "Material"
+          jq -c '.files[]' inbox/urls_release.json | while read f; do
+            NAME=$(echo "$f" | jq -r .name); URL=$(echo "$f" | jq -r .url)
+            curl -sSL -o "/tmp/$NAME" "$URL" && ls -la "/tmp/$NAME" && gh release upload "$TAG" "/tmp/$NAME" --clobber || echo "fallo $NAME"
+          done
