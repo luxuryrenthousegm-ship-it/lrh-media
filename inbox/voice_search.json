@@ -1,7 +1,7 @@
 {"queries":[
- {"gender":"female","age":"young","language":"es","use_cases":"conversational","page_size":"15","sort":"cloned_by_count"},
- {"gender":"female","age":"young","language":"es","use_cases":"social_media","page_size":"15","sort":"cloned_by_count"},
- {"gender":"female","language":"es","search":"natural","page_size":"15","sort":"cloned_by_count"},
- {"gender":"female","language":"es","search":"warm","page_size":"10","sort":"cloned_by_count"},
- {"gender":"female","language":"es","search":"real estate","page_size":"10"}
+ {"gender":"female","language":"es","accent":"dominican","page_size":"20","sort":"cloned_by_count"},
+ {"gender":"female","language":"es","search":"dominicana","page_size":"20"},
+ {"gender":"female","language":"es","search":"caribbean","page_size":"15"},
+ {"gender":"female","language":"es","search":"puerto rico","page_size":"10"},
+ {"gender":"female","language":"es","search":"presentadora","page_size":"15","sort":"cloned_by_count"}
 ]}
