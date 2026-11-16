@@ -1,0 +1,6 @@
+[
+ {"name":"doral_music_a","type":"music","length_ms":27000,"prompt":"Sophisticated luxury real estate reel soundtrack, modern deep house at 105 BPM, warm Rhodes chords, soft plucked guitar, subtle Caribbean percussion (shakers, light congas), deep clean bass, airy pads. Starts with a short atmospheric intro of 2 seconds, then the groove drops in, builds tension around 16 seconds with a short riser and a one-beat pause, then a satisfying drop and an elegant fade out at the end. Polished, premium, cinematic, no vocals."},
+ {"name":"sfx_lock","type":"sfx","duration":1.5,"prompt":"Modern smart door lock: two short soft electronic beeps followed by a clean mechanical unlock click, close-up, crisp, no room noise"},
+ {"name":"sfx_whoosh","type":"sfx","duration":0.8,"prompt":"Fast soft cinematic air whoosh swipe transition, smooth, clean, short tail"},
+ {"name":"sfx_impact","type":"sfx","duration":2.0,"prompt":"Deep soft cinematic sub boom impact with a gentle shimmering tail, luxury trailer reveal"}
+]

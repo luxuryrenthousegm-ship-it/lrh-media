@@ -1,0 +1,41 @@
+name: eleven-audio
+on:
+  push:
+    paths: ['inbox/audio_jobs.json']
+permissions:
+  contents: write
+jobs:
+  gen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate music / sound effects with ElevenLabs
+        env:
+          XI: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+          key=os.environ["XI"]; os.makedirs("audio/gen",exist_ok=True)
+          for j in json.load(open("inbox/audio_jobs.json")):
+              if j["type"]=="music":
+                  url="https://api.elevenlabs.io/v1/music?output_format=mp3_44100_192"
+                  body={"prompt":j["prompt"],"music_length_ms":j["length_ms"],"model_id":"music_v1"}
+                  if j.get("force_instrumental",True): body["force_instrumental"]=True
+              else:
+                  url="https://api.elevenlabs.io/v1/sound-generation?output_format=mp3_44100_192"
+                  body={"text":j["prompt"],"duration_seconds":j.get("duration",2),"prompt_influence":j.get("influence",0.5)}
+              req=urllib.request.Request(url,data=json.dumps(body).encode(),headers={"xi-api-key":key,"Content-Type":"application/json"},method="POST")
+              try:
+                  data=urllib.request.urlopen(req,timeout=600).read()
+                  open(f"audio/gen/{j['name']}.mp3","wb").write(data); print("ok",j["name"],len(data))
+              except Exception as e:
+                  msg=str(e)+" "+getattr(e,"read",lambda:b"")().decode(errors="ignore")[:500]
+                  open(f"audio/gen/{j['name']}.error.txt","w").write(msg); print("ERR",j["name"],msg)
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add audio/gen
+          git commit -m "Audio generado" || echo nada
+          git pull --rebase -q; git push
