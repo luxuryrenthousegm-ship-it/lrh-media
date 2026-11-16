@@ -1,1 +1,7 @@
-{"queries":[],"add":{"public_owner_id":"20c4acce51d29eafb3a7681e7d53d2a2a19d90d9143d45d0ce284e549313ec85","voice_id":"F3a2wFOCvgmg3VVaWY1j","new_name":"LRH Narradora Daniela"}}
+{"queries":[
+ {"gender":"female","age":"young","language":"es","use_cases":"conversational","page_size":"15","sort":"cloned_by_count"},
+ {"gender":"female","age":"young","language":"es","use_cases":"social_media","page_size":"15","sort":"cloned_by_count"},
+ {"gender":"female","language":"es","search":"natural","page_size":"15","sort":"cloned_by_count"},
+ {"gender":"female","language":"es","search":"warm","page_size":"10","sort":"cloned_by_count"},
+ {"gender":"female","language":"es","search":"real estate","page_size":"10"}
+]}
