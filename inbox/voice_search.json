@@ -1,6 +1,1 @@
-{"queries":[
- {"gender":"female","age":"young","language":"es","use_cases":"narrative_story","page_size":"15","sort":"usage_character_count_1y"},
- {"gender":"female","age":"young","language":"es","page_size":"20","sort":"usage_character_count_1y"},
- {"gender":"female","age":"young","language":"es","search":"elegant","page_size":"10"},
- {"gender":"female","age":"young","language":"es","search":"sophisticated","page_size":"10"}
-]}
+{"queries":[],"add":{"public_owner_id":"20c4acce51d29eafb3a7681e7d53d2a2a19d90d9143d45d0ce284e549313ec85","voice_id":"F3a2wFOCvgmg3VVaWY1j","new_name":"LRH Narradora Daniela"}}
