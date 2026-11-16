@@ -86,7 +86,7 @@ for n,(i,fr) in enumerate(frames):
     # whip at cuts (except into price shot, which uses a flash/zoom)
     for ci in range(1,9):
         c=starts[ci]
-        if ci in (8,): continue
+        if ci in (7,8): continue
         if c-WT<=n<c+WT:
             A=frames[min(n,c-1)][1] if n<c else frames[c-1][1]
             B=frames[c][1] if n<c else frames[n][1]
@@ -97,7 +97,7 @@ for n,(i,fr) in enumerate(frames):
     else:
         g=grade(a,n)
         if i==8:  # precio: zoom lento + oscurecer progresivo
-            tin=t-st[8]; img=Image.fromarray(g).convert('RGBA')
+            tin=t-st[8]; img=Image.fromarray(g).filter(ImageFilter.GaussianBlur(7*ease(tin/0.6))).convert('RGBA')
             img.alpha_composite(Image.new('RGBA',(W,H),VERDE+(int(140*ease(tin/0.8)),)))
         else:
             img=Image.fromarray(g).convert('RGBA')
