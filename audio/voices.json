@@ -1,5 +1,20 @@
 [
  {
+  "name": "CRYSTAL -  Dominican Spanish Narration",
+  "voice_id": "dfbit8KZwSN0OJGuj7pq",
+  "category": "professional"
+ },
+ {
+  "name": "Daniela - Young & Sophisticated",
+  "voice_id": "F3a2wFOCvgmg3VVaWY1j",
+  "category": "professional"
+ },
+ {
+  "name": "Marcela - Colombian Girl",
+  "voice_id": "86V9x9hrQds83qf7zaGn",
+  "category": "professional"
+ },
+ {
   "name": "Gregory RD.",
   "voice_id": "mUu2KoxrgUkmUXYV00tu",
   "category": "cloned"
@@ -10,13 +25,8 @@
   "category": "cloned"
  },
  {
-  "name": "Daniela - Young & Sophisticated",
-  "voice_id": "F3a2wFOCvgmg3VVaWY1j",
-  "category": "professional"
- },
- {
-  "name": "Marcela - Colombian Girl",
-  "voice_id": "86V9x9hrQds83qf7zaGn",
+  "name": "Diana",
+  "voice_id": "IeiHyO4UwOOUdKQ0HSDK",
   "category": "professional"
  }
 ]
