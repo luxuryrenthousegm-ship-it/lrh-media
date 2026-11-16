@@ -1,8 +1,8 @@
 [
  {
-  "name": "Daniela - Young & Sophisticated",
-  "voice_id": "F3a2wFOCvgmg3VVaWY1j",
-  "category": "professional"
+  "name": "Gregory RD.",
+  "voice_id": "mUu2KoxrgUkmUXYV00tu",
+  "category": "cloned"
  },
  {
   "name": "Gregory LRH.",
@@ -10,8 +10,13 @@
   "category": "cloned"
  },
  {
-  "name": "Gregory RD.",
-  "voice_id": "mUu2KoxrgUkmUXYV00tu",
-  "category": "cloned"
+  "name": "Daniela - Young & Sophisticated",
+  "voice_id": "F3a2wFOCvgmg3VVaWY1j",
+  "category": "professional"
+ },
+ {
+  "name": "Marcela - Colombian Girl",
+  "voice_id": "86V9x9hrQds83qf7zaGn",
+  "category": "professional"
  }
 ]
