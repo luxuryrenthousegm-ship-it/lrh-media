@@ -1,0 +1,6 @@
+{"queries":[
+ {"gender":"female","age":"young","language":"es","use_cases":"narrative_story","page_size":"15","sort":"usage_character_count_1y"},
+ {"gender":"female","age":"young","language":"es","page_size":"20","sort":"usage_character_count_1y"},
+ {"gender":"female","age":"young","language":"es","search":"elegant","page_size":"10"},
+ {"gender":"female","age":"young","language":"es","search":"sophisticated","page_size":"10"}
+]}
