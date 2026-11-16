@@ -37,8 +37,8 @@ def build():
     made.append(b.jason("v20_ventura", "LISTO PARA MUDARTE", ["AMUEBLADO", "EN VISTA CANA", "*US$1,195"],
                         body=["Ventura Golf, Vista Cana. 1 habitación,", "terraza y mantenimiento incluido."],
                         ask=["¿TE MANDO EL VIDEO?"], src=P(1044, 3), focus=(0.5, 0.35), hs=124))
-    # ── MACIEL domingo 22 · tip para propietarios
-    made.append(b.jason("d22_propietarios", "PARA PROPIETARIOS", ["UN APARTAMENTO", "VACÍO TAMBIÉN", "*TE CUESTA"],
+    # ── MACIEL domingo 22 · dato (sin etiquetar audiencia)
+    made.append(b.jason("d22_propietarios", "DATO QUE POCOS TE DICEN", ["UN APARTAMENTO", "VACÍO TAMBIÉN", "*TE CUESTA"],
                         quote=["Mantenimiento, luz, agua…", "corren aunque nadie viva ahí."],
                         body=["Nosotros lo alquilamos a largo plazo", "y lo administramos por ti."],
                         ask=["ESCRÍBEME: " + WA], hs=116))
