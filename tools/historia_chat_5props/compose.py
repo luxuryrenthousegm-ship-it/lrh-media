@@ -1,0 +1,159 @@
+import subprocess, numpy as np
+from PIL import Image, ImageDraw, ImageFont, ImageFilter
+W,H,FPS=1080,1920,30
+TOT=15.5; N=int(TOT*FPS)
+FI="/home/claude/fonts/fontsource-instrument-serif/files"; FM="/home/claude/fonts/fontsource-manrope/files"
+ser=lambda s,it=False: ImageFont.truetype(f"{FI}/instrument-serif-latin-400-{'italic' if it else 'normal'}.woff",s)
+man=lambda w,s: ImageFont.truetype(f"{FM}/manrope-latin-{w}-normal.woff",s)
+VERDE=(52,59,52); VERDE2=(42,48,42); CREMA=(236,232,225); PIEDRA=(156,152,147); BL=(255,255,255); INK=(28,30,28)
+def ease(x): x=min(max(x,0),1); return 1-(1-x)**3
+def eio(x): x=min(max(x,0),1); return x*x*(3-2*x)
+
+# --- Maciel plate
+m=Image.open('maciel.png').convert('RGB').crop((0,290,1080,1640))
+m=m.resize((round(1080*1920/1350),1920),Image.LANCZOS)
+MAC=m.crop((185,0,185+1080,1920))
+MAC_BG=Image.blend(MAC.filter(ImageFilter.GaussianBlur(14)),Image.new('RGB',(W,H),(14,17,14)),0.80)
+# avatar
+av=Image.open('maciel.png').convert('RGB').crop((300,470,780,950)).resize((64,64),Image.LANCZOS)
+mask=Image.new('L',(64,64),0); ImageDraw.Draw(mask).ellipse([0,0,63,63],fill=255)
+AV=Image.new('RGBA',(64,64)); AV.paste(av,(0,0),mask)
+LOGO=Image.open('/home/claude/lrh-media/brand/logo_lrh_blanco.png').convert('RGBA')
+LOGO=LOGO.resize((round(LOGO.width*90/LOGO.height),90),Image.LANCZOS)
+
+# --- cards
+PROPS=[('ae/p1051_1.jpg','Doral Residences','Villas Bávaro · 2 hab · Amueblado','US$1,150'),
+       ('ae/p1038_feat.jpg','Doral Residences','Villas Bávaro · 2 hab · Amueblado','US$1,175'),
+       ('ae/p1044_2.jpg','Vista Cana','Punta Cana · 1 hab · Amueblado','US$1,195'),
+       ('ae/p1041_feat.jpg','Panorama Park & Garden','Vista Cana · 1 hab','US$800'),
+       ('ae/p1039_0.jpg','Villa San Juan Lake','Downtown Punta Cana · 3 hab','US$2,875')]
+CW,PH=470,500
+def card(img,t,sub,price):
+    ch=96+PH+190
+    c=Image.new('RGBA',(CW,ch),(0,0,0,0)); d=ImageDraw.Draw(c)
+    d.rounded_rectangle([0,0,CW-1,ch-1],26,fill=(250,249,247,255))
+    c.alpha_composite(AV,(20,16))
+    d.text((98,22),"maciel.luxuryrh",font=man(600,24),fill=INK+(255,))
+    d.text((98,52),"Renta a largo plazo",font=man(400,20),fill=(110,110,106,255))
+    ph=Image.open(img).convert('RGB'); r=max(CW/ph.width,PH/ph.height)
+    ph=ph.resize((round(ph.width*r),round(ph.height*r)),Image.LANCZOS)
+    x0=(ph.width-CW)//2; y0=(ph.height-PH)//2; ph=ph.crop((x0,y0,x0+CW,y0+PH))
+    c.paste(ph,(0,96))
+    d.text((24,96+PH+20),t,font=ser(42),fill=INK+(255,))
+    d.text((24,96+PH+72),sub,font=man(500,21),fill=(95,95,90,255))
+    d.text((24,96+PH+112),price,font=ser(46),fill=VERDE+(255,))
+    pw=d.textlength(price,font=ser(46)); d.text((24+pw+8,96+PH+128),"/mes",font=man(500,21),fill=(95,95,90,255))
+    bt="Enviar mensaje"; f=man(700,22); bw=d.textlength(bt,font=f)
+    d.rounded_rectangle([CW-bw-64,96+PH+116,CW-20,96+PH+170],27,fill=VERDE+(255,))
+    d.text((CW-bw-42,96+PH+129),bt,font=f,fill=BL+(255,))
+    # rounded mask
+    mk=Image.new('L',c.size,0); ImageDraw.Draw(mk).rounded_rectangle([0,0,CW-1,ch-1],26,fill=255)
+    c.putalpha(Image.fromarray(np.minimum(np.array(c.getchannel('A')),np.array(mk))))
+    return c
+CARDS=[card(*p) for p in PROPS]; CH=CARDS[0].height; GAP=36
+
+# --- chat
+CHAT=[(3.7,'c',"¿Tienen algo en Bávaro\no Punta Cana?"),
+      (5.1,'m',"¡Sí! Tengo 5 opciones\ndisponibles."),
+      (7.0,'c',"¿Desde cuánto?"),
+      (8.3,'m',"Desde US$800 al mes.\nRenta a largo plazo."),
+      (10.1,'c',"¿Me mandas los videos?"),
+      (11.2,'m',"¡Claro! Escríbeme\npor Instagram.")]
+BF=man(500,34)
+def bubble(kind,txt):
+    lines=txt.split('\n'); dd=ImageDraw.Draw(Image.new('RGB',(1,1)))
+    tw=max(dd.textlength(l,font=BF) for l in lines); bw=int(tw)+60; bh=30+48*len(lines)
+    b=Image.new('RGBA',(bw,bh)); d=ImageDraw.Draw(b)
+    fill=(255,255,255,245) if kind=='c' else VERDE+(250,)
+    d.rounded_rectangle([0,0,bw-1,bh-1],30,fill=fill)
+    if kind=='m': d.rounded_rectangle([0,0,bw-1,bh-1],30,outline=(200,196,190,140),width=2)
+    for i,l in enumerate(lines): d.text((30,14+48*i),l,font=BF,fill=(INK if kind=='c' else BL)+(255,))
+    return b
+BUBS=[(t,k,bubble(k,s)) for t,k,s in CHAT]
+
+def spaced(d,x,y,txt,f,fill,sp):
+    for ch in txt: d.text((x,y),ch,font=f,fill=fill); x+=d.textlength(ch,font=f)+sp
+def sw(d,txt,f,sp): return sum(d.textlength(c,font=f) for c in txt)+sp*(len(txt)-1)
+
+grain_rng=np.random.default_rng(3)
+def grain(img,n):
+    a=np.asarray(img).astype(np.float32)
+    g=np.random.default_rng(n).normal(0,3.2,(H//2,W//2,1)); g=np.repeat(np.repeat(g,2,0),2,1)
+    return Image.fromarray(np.clip(a+g,0,255).astype(np.uint8))
+
+S2,S3=3.3,12.6
+enc=subprocess.Popen(["ffmpeg","-y","-loglevel","error","-f","rawvideo","-pix_fmt","rgb24","-s",f"{W}x{H}","-r",str(FPS),"-i","-",
+    "-c:v","libx264","-preset","slow","-crf","14","-pix_fmt","yuv420p","ov.mp4"],stdin=subprocess.PIPE)
+for n in range(N):
+    t=n/FPS
+    if t<S2+0.6:
+        # scene 1: portrait push-in
+        z=1+0.05*(t/(S2+0.6)); w2,h2=int(W/z),int(H/z)
+        img=MAC.crop(((W-w2)//2,(H-h2)//3,(W-w2)//2+w2,(H-h2)//3+h2)).resize((W,H),Image.LANCZOS).convert('RGBA')
+        ov=np.zeros((H,W,4),np.uint8); y=np.arange(H); k=np.clip((y-1050)/500,0,1)*0.85
+        ov[...,3]=(255*k)[:,None].astype(np.uint8); ov[...,:3]=8; img.alpha_composite(Image.fromarray(ov,'RGBA'))
+        L=Image.new('RGBA',(W,H)); d=ImageDraw.Draw(L)
+        a=ease((t-0.3)/0.8)*(1-ease((t-S2)/0.5))
+        A=int(255*a)
+        if A>0:
+            f=man(600,22); tx="MACIEL CARTY  ·  LUXURY RENT HOUSE"; spaced(d,(W-sw(d,tx,f,6))/2,1290,tx,f,CREMA+(A,),6)
+            for i,l in enumerate(["¿Buscas dónde vivir","en Bávaro o Punta Cana?"]):
+                ff=ser(78,True); d.text(((W-d.textlength(l,font=ff))/2,1350+i*92),l,font=ff,fill=BL+(A,))
+        img.alpha_composite(L)
+        if t>S2:
+            # crossfade into scene 2 background
+            bg=MAC_BG.convert('RGBA'); img=Image.blend(img,bg,ease((t-S2)/0.6))
+    if t>=S2+0.6 or (S2<=t):
+        if t>=S2+0.6: img=MAC_BG.convert('RGBA')
+        if t>=S2:
+            L=Image.new('RGBA',(W,H)); d=ImageDraw.Draw(L)
+            a=ease((t-S2)/0.6)*(1-ease((t-S3)/0.5)); A=int(255*a)
+            if A>0:
+                f=man(600,20); spaced(d,60,360,"LUXURY RENT HOUSE",f,CREMA+(A,),6)
+                d.text((60,400),"5 propiedades",font=ser(72),fill=BL+(A,))
+                d.text((60,476),"disponibles",font=ser(72,True),fill=BL+(A,))
+                d.line([(60,580),(150,580)],fill=CREMA+(int(A*.8),),width=2)
+            # cards column scrolling
+            if A>0:
+                v=4*(CH+GAP)/7.6
+                y0=1040-v*(t-S2)-260
+                for i,cd in enumerate(CARDS):
+                    yy=int(y0+i*(CH+GAP)+260)
+                    if -CH<yy<H:
+                        c2=cd.copy()
+                        if A<255: c2.putalpha(c2.getchannel('A').point(lambda v:int(v*a)))
+                        L.alpha_composite(c2,(W-CW-40,yy))
+            # chat bubbles (left)
+            y=680
+            vis=[b for b in BUBS if t>=b[0]]
+            for (tb,k,b) in vis:
+                p=ease((t-tb)/0.35)
+                bb=b.copy(); bb.putalpha(bb.getchannel('A').point(lambda v:int(v*p*a)))
+                bb=bb.resize((max(1,int(b.width*(0.85+0.15*p))),max(1,int(b.height*(0.85+0.15*p)))),Image.LANCZOS)
+                x=60 if k=='c' else 120
+                if k=='m':
+                    ap=AV.resize((48,48),Image.LANCZOS); ap.putalpha(ap.getchannel('A').point(lambda v:int(v*p*a)))
+                    L.alpha_composite(ap,(60,int(y+(1-p)*20+b.height-50)))
+                L.alpha_composite(bb,(x,int(y+(1-p)*20)))
+                y+=b.height+22
+            img.alpha_composite(L)
+    if t>=S3:
+        e=ease((t-S3)/0.6)
+        end=Image.new('RGBA',(W,H),VERDE2+(255,)); d=ImageDraw.Draw(end)
+        big=Image.new('L',(220,220),0); ImageDraw.Draw(big).ellipse([0,0,219,219],fill=255)
+        avb=Image.open('maciel.png').convert('RGB').crop((260,420,820,980)).resize((220,220),Image.LANCZOS)
+        end.paste(avb,((W-220)//2,470),big)
+        d.ellipse([(W-220)//2-6,464,(W+220)//2+5,695],outline=CREMA+(160,),width=2)
+        f=man(600,22); tx="RENTA A LARGO PLAZO  ·  BÁVARO  ·  PUNTA CANA"; spaced(d,(W-sw(d,tx,f,5))/2,760,tx,f,CREMA+(255,),5)
+        for i,l in enumerate(["Escríbeme y te mando","los videos."]):
+            ff=ser(84,i==1); d.text(((W-d.textlength(l,font=ff))/2,820+i*96),l,font=ff,fill=BL+(255,))
+        cta="ENVIAR MENSAJE"; fc=man(700,28); cw=sw(d,cta,fc,6)
+        d.rounded_rectangle([W/2-cw/2-56,1060,W/2+cw/2+56,1160],50,outline=BL+(255,),width=3); spaced(d,W/2-cw/2,1092,cta,fc,BL+(255,),6)
+        d.text(((W-d.textlength("@maciel.luxuryrh",font=man(500,30)))/2,1196),"@maciel.luxuryrh",font=man(500,30),fill=CREMA+(255,))
+        end.alpha_composite(LOGO,((W-LOGO.width)//2,1300))
+        img=Image.blend(img,end,e)
+    out=grain(img.convert('RGB'),n)
+    if t<0.25: out=Image.blend(Image.new('RGB',(W,H)),out,ease(t/0.25))
+    if t>TOT-0.35: out=Image.blend(out,Image.new('RGB',(W,H),VERDE2),ease((t-(TOT-0.35))/0.35))
+    enc.stdin.write(out.tobytes())
+enc.stdin.close(); enc.wait(); print("ok",N)
