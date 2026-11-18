@@ -1,7 +1,7 @@
 import subprocess, numpy as np
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 W,H,FPS=1080,1920,30
-TOT=15.5; N=int(TOT*FPS)
+TOT=19.5; N=int(TOT*FPS)
 FI="/home/claude/fonts/fontsource-instrument-serif/files"; FM="/home/claude/fonts/fontsource-manrope/files"
 ser=lambda s,it=False: ImageFont.truetype(f"{FI}/instrument-serif-latin-400-{'italic' if it else 'normal'}.woff",s)
 man=lambda w,s: ImageFont.truetype(f"{FM}/manrope-latin-{w}-normal.woff",s)
@@ -81,7 +81,7 @@ def grain(img,n):
     g=np.random.default_rng(n).normal(0,3.2,(H//2,W//2,1)); g=np.repeat(np.repeat(g,2,0),2,1)
     return Image.fromarray(np.clip(a+g,0,255).astype(np.uint8))
 
-S2,S3=3.3,12.6
+S2,S3=3.3,16.6
 enc=subprocess.Popen(["ffmpeg","-y","-loglevel","error","-f","rawvideo","-pix_fmt","rgb24","-s",f"{W}x{H}","-r",str(FPS),"-i","-",
     "-c:v","libx264","-preset","slow","-crf","14","-pix_fmt","yuv420p","ov.mp4"],stdin=subprocess.PIPE)
 for n in range(N):
@@ -115,7 +115,7 @@ for n in range(N):
                 d.line([(60,580),(150,580)],fill=CREMA+(int(A*.8),),width=2)
             # cards column scrolling
             if A>0:
-                v=4*(CH+GAP)/7.6
+                v=(1040+4*(CH+GAP)-560)/(S3-S2-0.4)
                 y0=1040-v*(t-S2)-260
                 for i,cd in enumerate(CARDS):
                     yy=int(y0+i*(CH+GAP)+260)
