@@ -109,10 +109,12 @@ for n in range(N):
             L=Image.new('RGBA',(W,H)); d=ImageDraw.Draw(L)
             a=ease((t-S2)/0.6)*(1-ease((t-S3)/0.5)); A=int(255*a)
             if A>0:
-                f=man(600,20); spaced(d,60,360,"LUXURY RENT HOUSE",f,CREMA+(A,),6)
-                d.text((60,400),"5 propiedades",font=ser(72),fill=BL+(A,))
-                d.text((60,476),"disponibles",font=ser(72,True),fill=BL+(A,))
-                d.line([(60,580),(150,580)],fill=CREMA+(int(A*.8),),width=2)
+                f=man(600,20); spaced(d,60,296,"LUXURY RENT HOUSE",f,CREMA+(A,),6)
+                d.text((60,336),"Propiedades",font=ser(66),fill=BL+(A,))
+                d.text((60,406),"disponibles",font=ser(66),fill=BL+(A,))
+                d.text((60,476),"para entrega",font=ser(66,True),fill=BL+(A,))
+                d.text((60,546),"inmediata",font=ser(66,True),fill=BL+(A,))
+                d.line([(60,642),(150,642)],fill=CREMA+(int(A*.8),),width=2)
             # cards column scrolling
             if A>0:
                 v=(1040+4*(CH+GAP)-560)/(S3-S2-0.4)
